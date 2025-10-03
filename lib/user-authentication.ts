@@ -17,7 +17,7 @@ export async function checkingUserRole() {
   const changeResponse = await userToken.json()
   const linkPath = window.location.pathname.split("/")[2]
 
-  if (changeResponse[0].user_role !== linkPath) {
+  if (changeResponse.user_profile[0].user_role !== linkPath) {
     window.location.href = "/dashboard/" + changeResponse[0].user_role
   } else {
     if (LoadingScreen) LoadingScreen.style.display = "none"

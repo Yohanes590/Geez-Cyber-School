@@ -16,11 +16,11 @@ export async function POST(userReqest: Request) {
         const passwordCheck = await bcrypt.compare(PickUserPassword,DBResponse?.user_password)
         if (passwordCheck) {
             
-            const AccessKey = process.env.AUTHENTICATION_KEY
-            if (!AccessKey) {
+            const private_key = process.env.PRIVATE_KEY?.replace(/\\n/g,"\n")
+            if (!private_key) {
                 return NextResponse.json({message:"empty access key!!",status:500})
             }
-        const JWTToken = jwt.sign({user_id:DBResponse.id} ,AccessKey )
+        const JWTToken = jwt.sign({user_id:DBResponse.id} ,private_key ,{algorithm:"RS256", expiresIn:"24h"})
         return NextResponse.json({message:"login success",token:JWTToken , status:200})
         } else {
             return NextResponse.json({message:"no user found" , status:400})

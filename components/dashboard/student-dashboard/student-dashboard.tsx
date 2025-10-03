@@ -12,7 +12,7 @@ export default function StudentDashboard() {
             setDate(DateCounter)
             async function userProfileFetch() {
                   const userProfileFetch = await checkingUserRole()
-                  const UsernameFetch = userProfileFetch[0].student_name
+                  const UsernameFetch = userProfileFetch.user_profile[0].student_name
                    const HtmlPart = document.querySelector(".user-name-display") as HTMLElement
                   HtmlPart.innerHTML= UsernameFetch 
             }

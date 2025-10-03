@@ -85,9 +85,9 @@ export async function POST(userReqest: Request) {
                     user_subject:Subjects ,
         }
      })
-     const authentication_key = process.env.AUTHENTICATION_KEY
-     if(!authentication_key) return NextResponse.json({message:"no acess key"})
-     const user_token = jwt.sign({user_id:RegisrationInfo.id},authentication_key,{expiresIn:"24h"})
+     const private_key = process.env.PRIVATE_KEY?.replace(/\\n/g,"\n")
+     if(!private_key) return NextResponse.json({message:"no acess key"})
+     const user_token = jwt.sign({user_id:RegisrationInfo.id},private_key,{algorithm:"RS256",expiresIn:"24h"})
      return NextResponse.json({message:RegisrationInfo,status:200,token:user_token})
     } catch (error:any) {
    return NextResponse.json({message:error.message})

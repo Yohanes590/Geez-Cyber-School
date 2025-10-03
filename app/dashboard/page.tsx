@@ -21,13 +21,13 @@ export default function AuthenFunction() {
                   })
             const changeToJson = await serverResponse.json()
                   console.log(changeToJson)
-                  if (changeToJson[0].user_role == "student") {
+                  if (changeToJson.user_profile[0].user_role == "student") {
                   window.location.href = "/dashboard/student"
-                  } else if (changeToJson[0].user_role == "teacher") {
+                  } else if (changeToJson.user_profile[0].user_role == "teacher") {
                   window.location.href = "/dashboard/teacher"
-                  } else if (changeToJson[0].user_role == "parent") {
+                  } else if (changeToJson.user_profile[0].user_role == "parent") {
                   window.location.href = "/dashboard/parent"
-                  } else if (changeToJson[0].user_role == "admin") {
+                  } else if (changeToJson.user_profile[0].user_role == "admin") {
                   window.location.href = "/dashboard"
                   } else {
                   
