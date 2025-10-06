@@ -5,6 +5,7 @@ import { checkingUserRole } from "@/lib/user-authentication"
 import Link from "next/link"
 import AssignmentChart from "@/components/chart-components/student/assignment-vertical-chart"
 import StudentPieChart from "@/components/chart-components/student/pie-chart"
+import LoadingScreen from "../loading-screen/loading-screen"
 export default function StudentDashboard() {
       const [ DateDisplay , setDate ] = useState<Date>()
       useEffect(() => {
@@ -21,6 +22,7 @@ export default function StudentDashboard() {
       },[])
   
       return <>
+            <LoadingScreen/>
             <div className="dashboard-container ml-[400px] pt-[50px]">
                   <div className="header-container">
                         <div className="text-button-container items-center mb-[4px] flex justify-between">
