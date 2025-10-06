@@ -43,7 +43,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: `Unsupported algorithm: ${alg}` }, { status: 400 });
     }
 
-    // Fetch user data from DB using the verified payload
     const userInformation = await prisma.user.findUnique({
       where: { id: payload.user_id },
     });
