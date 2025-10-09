@@ -1,4 +1,4 @@
-
+import TeacherSideNav from "@/components/dashboard/side-nav/teacher-side-nav/teacher-side-nav"
 export default function DashboardLayout({
       children,
 }: Readonly<{
@@ -6,7 +6,7 @@ export default function DashboardLayout({
 }>) {
       return (<>
             <main>
-                  
+             <TeacherSideNav/>
       {children}
       </main>
       </>)

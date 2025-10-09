@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 
-// Helper to extract the algorithm from the JWT header
 function getAlgorithm(token: string): string | null {
   try {
     const header = JSON.parse(
