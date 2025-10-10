@@ -20,10 +20,11 @@ export async function POST(userReqest: Request) {
         }
 
         const HashingPassword = await bcrypt.hash(ReadRequest.student_password, 10)
-
-
-
         const userRole = ReadRequest.role
+    
+ 
+        
+
         var AssignUserRole;
         if (!userRole) {
             AssignUserRole = "student"
@@ -64,6 +65,37 @@ export async function POST(userReqest: Request) {
             },
             
         ]
+
+          if (userRole == "parent") {
+              const Parent = await prisma.user.create({
+                  data: {
+                   full_name: ReadRequest.student_name,
+                   user_email: ReadRequest.student_email,
+                   user_password: HashingPassword,
+                    user_role: AssignUserRole,
+                    user_profile: [
+                    {
+                        teacher_name: ReadRequest.student_name,
+                        teacher_email: ReadRequest.student_email,
+                        user_role: AssignUserRole,
+                }
+                ]
+                   
+                }
+            })
+              const GeezBankRegister = await prisma.geezBank.create({
+                  data: {
+                      name: ReadRequest.student_name,
+                      email: ReadRequest.student_email,
+                      balance:100
+                    }
+              })
+     const private_key = process.env.PRIVATE_KEY?.replace(/\\n/g,"\n")
+     if(!private_key) return NextResponse.json({message:"no acess key"})
+     const user_token = jwt.sign({user_id:Parent.id},private_key,{algorithm:"RS256",expiresIn:"24h"})
+     return NextResponse.json({ message: Parent, status: 200, token: user_token })
+              
+     }
         const RegisrationInfo = await prisma.user.create({
         data:{
             full_name: ReadRequest.student_name,
@@ -85,6 +117,7 @@ export async function POST(userReqest: Request) {
                     user_subject:Subjects ,
         }
      })
+
      const private_key = process.env.PRIVATE_KEY?.replace(/\\n/g,"\n")
      if(!private_key) return NextResponse.json({message:"no acess key"})
      const user_token = jwt.sign({user_id:RegisrationInfo.id},private_key,{algorithm:"RS256",expiresIn:"24h"})

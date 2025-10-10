@@ -14,13 +14,20 @@ datasource db {
 }
 
 model User {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
   full_name     String
-  user_email    String @unique
-  user_grade    String
-  user_section  String
+  user_email    String  @unique
+  user_grade    String?
+  user_section  String?
   user_password String
   user_role     String
   user_profile  Json
-  user_subject  Json
+  user_subject  Json?
+}
+
+model geezBank {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  email   String
+  balance Float
 }
